@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+        <title>Home</title>
+
+        <!-- General CSS Files -->
+        <link rel="stylesheet" th:href="@{/stisla/dist/assets/modules/bootstrap/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/stisla/dist/assets/modules/fontawesome/css/all.min.css}">
+
+        <!-- CSS Libraries -->
+        <link rel="stylesheet" th:href="@{/stisla/dist/assets/modules/datatables/datatables.min.css}">
+        <link rel="stylesheet" th:href="@{/stisla/dist/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css}">
+        <link rel="stylesheet" th:href="@{/stisla/dist/assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css}">
+        <link rel="stylesheet" th:href="@{/stisla/dist/assets/modules/bootstrap-daterangepicker/daterangepicker.css}">
+
+        <!-- Template CSS -->
+        <link rel="stylesheet" th:href="@{/stisla/dist/assets/css/style.css}">
+        <link rel="stylesheet" th:href="@{/stisla/dist/assets/css/components.css}">
+
+        <!-- Start GA -->
+        <script async th:src="@{https://www.googletagmanager.com/gtag/js?id=UA-94034622-3}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-94034622-3');
+        </script>
+        <!-- /END GA -->
+    </head>
+
+    <body class="sidebar-mini">
+        <div id="app">
+            <div class="main-wrapper main-wrapper-1">
+                <div class="navbar-bg"></div>
+                <nav class="navbar navbar-expand-lg main-navbar">
+                    <form class="form-inline mr-auto">
+                        <ul class="navbar-nav mr-3">
+                            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                            <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
+                        </ul>
+                    </form>
+                </nav>
+                <div class="main-sidebar sidebar-style-2">
+                    <aside id="sidebar-wrapper">
+                        <div class="sidebar-brand">
+                            <a th:href="@{/data}">Covid-19 Data</a>
+                        </div>
+                        <div class="sidebar-brand sidebar-brand-sm">
+                            <a th:href="@{/data}">CD</a>
+                        </div>
+                        <ul class="sidebar-menu">
+                            <li class=active><a class="nav-link" th:href="@{/data}"><i class="fas fa-table"></i> <span>Home</span></a></li>
+                        </ul>
+                    </aside>
+                </div>
+
+                <div class="main-content">
+                    <section class="section">
+                        <div class="section-header">
+                            <h1>Home</h1>
+                        </div>
+                        <div class="section-body">
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <form th:action="@{/data}" method="GET">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>Date</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="form-group col-md-6 col-bg-12">
+                                                        <input type="text" class="form-control datepicker" name="date" th:value="${date}">
+                                                    </div>
+                                                    <div class="form-group col-md-6 col-bg-12">
+                                                        <input type="submit" class="btn btn-lg btn-outline-primary col-12" value="Get Data">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 th:text="'Covid-19 Data Of Date: ' + ${date}">Covid-19 Data</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped" id="table-1">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Province/State</th>
+                                                            <th>Country/Region</th>
+                                                            <th>Last update</th>
+                                                            <th>Confirmed</th>
+                                                            <th>Deaths</th>
+                                                            <th>Recovered</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr th:each="dataRecord : ${dataRecords}">
+                                                            <td th:text="${dataRecord.provinceState}">-</td>
+                                                            <td th:text="${dataRecord.countryRegion}">-</td>
+                                                            <td th:text="${dataRecord.lastUpdate}">-</td>
+                                                            <td th:text="${dataRecord.confirmed}">-</td>
+                                                            <td th:text="${dataRecord.deaths}">-</td>
+                                                            <td th:text="${dataRecord.recovered}">-</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>Covid 19 Data Source</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <a th:href="@{https://github.com/CSSEGISandData/COVID-19}" target="_blank">COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <footer class="main-footer">
+                    <div class="footer-left">
+
+                    </div>
+                    <div class="footer-right">
+
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <!-- General JS Scripts -->
+        <script th:src="@{/stisla/dist/assets/modules/jquery.min.js}"></script>
+        <script th:src="@{/stisla/dist/assets/modules/popper.js}"></script>
+        <script th:src="@{/stisla/dist/assets/modules/tooltip.js}"></script>
+        <script th:src="@{/stisla/dist/assets/modules/bootstrap/js/bootstrap.min.js}"></script>
+        <script th:src="@{/stisla/dist/assets/modules/nicescroll/jquery.nicescroll.min.js}"></script>
+        <script th:src="@{/stisla/dist/assets/modules/moment.min.js}"></script>
+        <script th:src="@{/stisla/dist/assets/js/stisla.js}"></script>
+
+        <!-- JS Libraies -->
+        <script th:src="@{/stisla/dist/assets/modules/datatables/datatables.min.js}"></script>
+        <script th:src="@{/stisla/dist/assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js}"></script>
+        <script th:src="@{/stisla/dist/assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js}"></script>
+
+        <script th:src="@{/stisla/dist/assets/modules/bootstrap-daterangepicker/daterangepicker.js}"></script>
+
+        <!-- Page Specific JS File -->
+        <script th:src="@{/stisla/dist/assets/js/page/modules-datatables.js}"></script>
+
+        <!-- Template JS File -->
+        <script th:src="@{/stisla/dist/assets/js/scripts.js}"></script>
+        <script th:src="@{/stisla/dist/assets/js/custom.js}"></script>
+    </body>
+</html>
